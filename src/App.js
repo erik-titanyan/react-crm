@@ -1,25 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import EmptyLayout from './layouts/empty-layout';
+import { useLocation } from 'react-router-dom';
+import FilledLayout from './layouts/filled-layout';
+
 
 function App() {
+  const location = useLocation().pathname
+ 
+  const willUseLayout = {
+    [location === '/login' || location === '/register' ? location : ''] : EmptyLayout,
+    filled: FilledLayout,
+  }
+
+  const Layout = willUseLayout[location] || willUseLayout['filled']
+   
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    
+    <div className="app">
+        <Layout/> 
     </div>
+    
   );
 }
 
